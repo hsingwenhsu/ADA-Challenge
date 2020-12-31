@@ -4,7 +4,7 @@
 #include <fstream>    // for ifstream
 #include <utility>    // for pair
 #include <iostream>
-
+#include <algorithm>
 
 // using namespace std;
 class Event {
@@ -36,6 +36,8 @@ class Operation {
         int duration{};
         std::vector<int> deps;
         bool done{};
+        double wd; //added by Hsu, for the algorithm
+        int depend_t; //added by Hsu, this op should start after depend_t
         Event *startEvent, *endEvent;
         std::stringstream result(){
             std::stringstream ss;
@@ -49,9 +51,18 @@ class Operation {
             }
             return ss;
         }
-        
-
+        /*bool operator > (const Operation& op) const{
+            return (wd>op.wd);
+        }*/
 };
+
+bool comp_op(const Operation &a, const Operation &b){
+    if(a.wd>b.wd) return true;
+    if(a.wd<b.wd) return false;
+    if(a.depend_t<b.depend_t) return true;
+    if(a.depend_t>b.depend_t) return false;
+}
+
 class Job {
     public:
         double weight{};
@@ -92,16 +103,35 @@ std::pair<int, std::vector<Job>> readTestCase( std::string testCase){
     return {l, jobs};
 }
 
+//sort for operations
+
+
 int main(int argc, char** argv){
     const auto [slices, jobs] = readTestCase(argv[1]);
+    std::vector <Operation> ops;
     for(size_t i = 0; i < jobs.size(); i++){
         std::cout << i << " weight: " << jobs[i].weight << std::endl;
         for(size_t j = 0; j < jobs[i].ops.size(); j++){
+            Operation tmp = jobs[i].ops[j]; //the op to be pushed into the vector
+            tmp.wd = jobs[i].weight*tmp.duration; //weight*duration
+
             std::cout << jobs[i].ops[j].slices << " " << jobs[i].ops[j].duration;
-            for(size_t k = 0; k < jobs[i].ops[j].deps.size(); k++)
+
+            int depend_tmp = 0; //caculate depend_t for this op
+            for(size_t k = 0; k < jobs[i].ops[j].deps.size(); k++){
                 std::cout << " " << jobs[i].ops[j].deps[k];
+                if(k!=0){
+                    depend_tmp+=jobs[i].ops[jobs[i].ops[j].deps[k]-1].duration;
+                } 
+            }
             std::cout << std::endl;
+            tmp.depend_t = depend_tmp;
+            ops.push_back(tmp);
         }
     }
-    
+    std::cout<<"Operations: "<<std::endl;
+    std::sort(ops.begin(), ops.end(), comp_op);
+    for(size_t i = 0; i < ops.size(); i++){
+        std::cout<<ops[i].wd<<" "<<ops[i].depend_t<<std::endl;
+    }
 }
