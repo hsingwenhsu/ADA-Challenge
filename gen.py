@@ -27,7 +27,7 @@ with open(outFile, "w+") as i:
         print(m)
         print(w)
         '''
-        jc = 0 #job count
+        jc = 0 #operation count
         for __ in range(m):
             s = int(random.randint(1, l))
             d = int(random.randint(1, 96))
@@ -65,3 +65,4 @@ with open(outFile, "w+") as i:
 
             i.write("\n")
             del dep
+            jc = 0
