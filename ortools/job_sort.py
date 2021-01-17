@@ -21,7 +21,6 @@ def MinimalJobshopSat():
 
     # Computes horizon dynamically as the sum of all durations.
     horizon = sum(task[1] for job in jobs_data for task in job)
-
     # Named tuple to store information about created variables.
     task_type = collections.namedtuple(
         'task_type', 'start end interval')
