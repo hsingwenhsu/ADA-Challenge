@@ -11,6 +11,7 @@ import random
 with open(outFile, "w+") as i:
     l = int(random.randint(1, 8))
     n = int(random.randint(1, 30))
+    # n = 1
     i.write(f"{l}\n{n}\n")
     '''
     print(l)
@@ -65,4 +66,4 @@ with open(outFile, "w+") as i:
 
             i.write("\n")
             del dep
-            jc = 0
+        jc = 0
