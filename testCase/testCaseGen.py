@@ -405,19 +405,21 @@ for i in range(10):
     #     best_list = job_list
     ideal_time.append(calculate(job_list))
     write_file("../ada-final-public/my" + str(i) + ".in", job_list, 8)
+for i in ideal_time:
+    print(i)
 
-best_util = 0
-idx = 0
-path = '../ada-final-public/'
-for i in range(10):
-    name = path + "my" + str(i) + ".in"
-    jobs_data, weight, slice_num = read_input(name)
-    jobs = convert2flexible(jobs_data, slice_num)
+#best_util = 0
+#idx = 0
+#path = '../ada-final-public/'
+#for i in range(10):
+ #   name = path + "my" + str(i) + ".in"
+#    jobs_data, weight, slice_num = read_input(name)
+#    jobs = convert2flexible(jobs_data, slice_num)
     #print(jobs)
-    time_cost = flexible_jobshop(jobs, weight, slice_num, name)
-    util = float(time_cost/ideal_time[i])
-    print(i, " : ", util)
-    if(util > best_util):
-        best_util = util
-        idx = i
-print("best", i)
+ #   time_cost = flexible_jobshop(jobs, weight, slice_num, name)
+  #  util = float(time_cost/ideal_time[i])
+#    print(i, " : ", util)
+   # if(util > best_util):
+    #    best_util = util
+#        idx = i
+#print("best", i)

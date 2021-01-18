@@ -14,8 +14,8 @@ class SolutionPrinter(cp_model.CpSolverSolutionCallback):
 
     def on_solution_callback(self):
         """Called at each new solution."""
-        print('Solution %i, time = %f s, objective = %i' %
-              (self.__solution_count, self.WallTime(), self.ObjectiveValue()))
+        #print('Solution %i, time = %f s, objective = %i' %
+        #      (self.__solution_count, self.WallTime(), self.ObjectiveValue()))
         self.__solution_count += 1
 
 def read_input(filename):
