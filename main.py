@@ -14,8 +14,8 @@ class SolutionPrinter(cp_model.CpSolverSolutionCallback):
 
     def on_solution_callback(self):
         """Called at each new solution."""
-        print('Solution %i, time = %f s, objective = %i' %
-              (self.__solution_count, self.WallTime(), self.ObjectiveValue()))
+        #print('Solution %i, time = %f s, objective = %i' %
+        #      (self.__solution_count, self.WallTime(), self.ObjectiveValue()))
         self.__solution_count += 1
 
 def read_input(filename):
@@ -40,7 +40,7 @@ def read_input(filename):
                     weights.append(weight)
                     for j in range(op_num):
                         op = input.readline()
-                        print(op)
+                        #print(op)
                         op = op.split(' ')
                         info_cnt = 0
                         op_slice = 0
@@ -210,7 +210,7 @@ def flexible_jobshop(jobs, weight, num_machines, filename):
     filename = filename.split('/')[-1]
     filename = filename.split('.')[0]+'.out'
     f = open('output/'+filename, "w")
-    print('ADA Challenge OUTPUT')
+    #print('ADA Challenge OUTPUT')
     fintime = 0
     for job_id in all_jobs:
         for task_id in range(len(jobs[job_id])):
@@ -242,6 +242,6 @@ if __name__ == "__main__":
     name = path+sys.argv[1]
     jobs_data, weight, slice_num = read_input(name)
     jobs = convert2flexible(jobs_data, slice_num)
-    print(jobs)
+    #print(jobs)
     flexible_jobshop(jobs, weight, slice_num, name)
     
