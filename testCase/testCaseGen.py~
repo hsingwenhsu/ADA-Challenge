@@ -404,7 +404,7 @@ for i in range(10):
     #     best_score = score
     #     best_list = job_list
     ideal_time.append(calculate(job_list))
-    write_file("../ada-final-public/my" + str(i) + ".in", job_list, 8)
+    write_file("../ada-final-public/my" + str(i) + ".in", best_list, 8)
 
 best_util = 0
 idx = 0
