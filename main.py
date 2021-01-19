@@ -238,7 +238,7 @@ def flexible_jobshop(jobs, weight, num_machines, filename):
 
 
 if __name__ == "__main__":
-    path = 'ada-final-public/'
+    path = 'release/'
     name = path+sys.argv[1]
     jobs_data, weight, slice_num = read_input(name)
     jobs = convert2flexible(jobs_data, slice_num)
