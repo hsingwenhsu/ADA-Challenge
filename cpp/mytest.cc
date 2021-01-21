@@ -203,11 +203,11 @@ namespace operations_research{
                     //if there is only one slice
                     if(num_alternatives==1){
                         const int m = 0;
-                        machines_to_intervals[m].push_back(interval);
-                        machines_to_jobs[m].push_back(i);
-                        machines_to_starts[m].push_back(start);
-                        machines_to_ends[m].push_back(end);
-                        machines_to_presences[m].push_back(cp_model.TrueVar());
+                        machine_to_intervals[m].push_back(interval);
+                        machine_to_jobs[m].push_back(i);
+                        machine_to_starts[m].push_back(start);
+                        machine_to_ends[m].push_back(end);
+                        machine_to_presences[m].push_back(cp_model.TrueVar());
                     }else{//more than one alternatives
                         std::vector<BoolVar> presences;
                         for(int k = 0; k<num_alternatives; k++){
@@ -222,7 +222,7 @@ namespace operations_research{
                                 absl::GetFlag(FLAGS_use_optional_variables)
                                     ? cp_model.NewIntVar(Domain(0, horizon))
                                     : end;
-                            const InterVal local_interval = cp_model.NewOptionalIntervalVar(
+                            const IntervalVar local_interval = cp_model.NewOptionalIntervalVar(
                                 local_start, local_duration, local_end, presence);
                             if(absl::GetFlag(FLAGS_use_optional_variables)){
                                 cp_model.AddEquality(start, local_start).OnlyEnforceIf(presence);
@@ -230,7 +230,7 @@ namespace operations_research{
                                 cp_model.AddEquality(duration, local_duration).OnlyEnforceIf(presence);
                             }
                             //record relevant variables for later use
-                            const m = k;
+                            const int m = k;
                             machine_to_intervals[m].push_back(local_interval);
                             machine_to_jobs[m].push_back(i);
                             machine_to_starts[m].push_back(local_start);
@@ -242,7 +242,7 @@ namespace operations_research{
                             presences.push_back(presence);
                         }//end alternatives
                         int required_slices = jobs_data.j_data[i].ops[j][0].slices;
-                        cp_model.AddEquality(Linear::BooleanSum(presences), required_slices);
+                        cp_model.AddEquality(LinearExpr::BooleanSum(presences), required_slices);
                     }
                 }
             }//end for each job
@@ -257,10 +257,10 @@ namespace operations_research{
             }//end adding precedence
             //add no overlap
             for(int m = 0; m<num_machines; m++){
-                cp_model.AddNoOverlap(machines_to_intervals[m]);
+                cp_model.AddNoOverlap(machine_to_intervals[m]);
             }
             //add objective
-            cp_model.AddMaxEquality(makespan, jobs_end);
+            cp_model.AddMaxEquality(makespan, job_ends);
             cp_model.Minimize(LinearExpr::ScalProd(job_ends, jobs_data.weights));
         }//end solve
     }
