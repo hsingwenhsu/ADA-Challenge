@@ -121,7 +121,7 @@ $ python3 main.py $input_file
     [[[(10, 0, [], 1), (10, 1, [], 1), (10, 2, [], 1)], [(5, 0, [1], 1), (5, 1, [1], 1), (5, 2, [1], 1)], [(7, 0, [1], 1), (7, 1, [1], 1), (7, 2, [1], 1)]], [[(5, 0, [], 2), (5, 1, [], 2), (5, 2, [], 2)]], [[(7, 0, [], 1), (7, 1, [], 1), (7, 2, [], 1)]]]
     ```
 
-    - Let's take a closer loop at the first operation of the first job: 
+    - Let's take a closer look at the first operation of the first job: 
 
       ```
       [(10, 0, [], 1), (10, 1, [], 1), (10, 2, [], 1)]
