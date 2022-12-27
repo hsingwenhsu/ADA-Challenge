@@ -1,4 +1,5 @@
 # ADA Final Challenge 
+NTU Algorithm Design and Analysis Final Project - Job Shop Problem with Google Or-Tools
 
 ## Usage
 
